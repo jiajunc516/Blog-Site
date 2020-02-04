@@ -5,20 +5,20 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Post(models.Model):
 
-    DRAFT = 'draft'
-    PUBLISHED = 'published'
+    DRAFT = "draft"
+    PUBLISHED = "published"
     STATUS_CHOICES = [
-        (DRAFT, 'Draft'),
-        (PUBLISHED, 'Published')
+        (DRAFT, "Draft"),
+        (PUBLISHED, "Published")
     ]
 
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250,
-                            unique_for_date='publish')
+                            unique_for_date="publish")
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='blog_posts')
+        related_name="blog_posts")
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
@@ -29,7 +29,7 @@ class Post(models.Model):
         default=DRAFT)
     
     class Meta:
-        ordering = ('-publish',)
+        ordering = ("-publish",)
     
     def __str__(self):
         return self.title
