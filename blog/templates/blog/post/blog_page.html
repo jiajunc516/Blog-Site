@@ -5,5 +5,5 @@
 <p>
     Published {{ post.publish }} by {{ post.author }}
 </p>
-{{ post.body }}
+{{ post.body|linebreaks }}
 {% endblock %}
