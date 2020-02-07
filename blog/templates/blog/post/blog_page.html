@@ -1,4 +1,8 @@
 {% block content %}
+<span>
+    <a href = "/blog">Back</a>
+</span>
+
 <h1>
     {{ post.title }}
 </h1>
@@ -7,7 +11,21 @@
 </p>
 {{ post.body|linebreaks }}
 
-<span>
-    <a href = "/blog">Back</a>
-</span>
+{% with post.comments.count as total_comments %}
+    <h2>
+        {{ total_comments }} comment{{ total_comments|pluralize}}
+    </h2>
+{% endwith %}
+
+{% for comment in post.comments.all %}
+    <div>
+        <p>
+            Comment by {{ comment.username }} {{ comment.created }}
+        </p>
+        {{ comment.body|linebreaks }}
+    </div>
+    {% empty %}
+        <p>There are no comments yet.</p>
+{% endfor %}
+
 {% endblock %}
