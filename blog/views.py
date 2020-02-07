@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Post
+from .models import Post, Comment
+from .forms import CommentForm
 
 NUMBER_OF_SHOWN_POST = 3
 # Create your views here.
@@ -31,8 +32,30 @@ def get_single_post(request, year, month, day, slug):
         publish__day = day,
         slug = slug
     ).first()
+
+    # List of active comments for this post
+    comments = post.comments.filter(active=True)
+    new_comment = None
+    if request.method == "POST":
+        # A comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object
+            new_comment = comment_form.save(commit=False)
+            # Assign current post to the comment
+            new_comment.post = post
+            # Save comment to database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
     return render(
         request,
         "blog/post/blog_page.html",
-        {"post": post}
+        {
+            "post": post,
+            "comments": comments,
+            "new_comment": new_comment,
+            "comment_form": comment_form
+        }
     )
