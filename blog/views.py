@@ -55,7 +55,7 @@ def get_single_post(request, year, month, day, slug):
             new_comment.save()
     else:
         comment_form = CommentForm()
-
+    tag_list = Tag.objects.all()
     return render(
         request,
         "blog/post/blog_page.html",
@@ -63,6 +63,7 @@ def get_single_post(request, year, month, day, slug):
             "post": post,
             "comments": comments,
             "new_comment": new_comment,
-            "comment_form": comment_form
+            "comment_form": comment_form,
+            "tag_list": tag_list
         }
     )
