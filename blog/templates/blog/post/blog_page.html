@@ -1,7 +1,6 @@
 {% block content %}
-<span>
-    <a href = "/blog">Back</a>
-</span>
+<h1><a href="{% url 'blog:post_list' %}">My Blog</a></h1>
+<hr>
 
 <h1>
     {{ post.title }}
