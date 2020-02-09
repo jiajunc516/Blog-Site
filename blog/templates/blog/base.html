@@ -1,0 +1,12 @@
+<html>
+<body>
+    <h1><a href="{% url 'blog:post_list' %}">My Blog</a></h1>
+    <hr>
+    {% block content %}
+    {% endblock %}
+    <div>
+        <hr>
+        <p>&copy; 2019-<script type="text/javascript">document.write(new Date().getFullYear());</script> by Jiajun Chang. All rights reserved. <a href="mailto:jiajunc_at_uci_dot_edu">Questions?</a></p>
+    </div>
+</body>
+</html>
